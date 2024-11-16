@@ -1,0 +1,11 @@
+https://github.com/karthikvx/PL-SQL-Chess.git
+
+$ docker login container-registry.oracle.com
+
+login: kvvchetty@outlook.com
+Hello$500
+
+$ docker pull container-registry.oracle.com/database/free:latest
+
+$ docker image ls | grep oracle                                                                                                                
+container-registry.oracle.com/database/free    latest    39cabc8e6db0    2 months ago    9.16GB

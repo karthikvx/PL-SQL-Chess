@@ -1,4 +1,3 @@
-DROP PACKAGE PL_PIG_CHESS_ENGINE_EVAL;
 
 CREATE OR REPLACE PACKAGE PL_PIG_CHESS_ENGINE_EVAL AS
 --
@@ -98,12 +97,12 @@ TYPE STILLINGTYPE is ARRAY(121) OF SIMPLE_INTEGER; /* in PL/SQL is offset 11, lo
 --------------------------------
 SkakBrainEvalDefCompilation CONSTANT varchar2(8) := '17';
 -- naming according to danish names:
-  ValueT  CONSTANT SIMPLE_INTEGER  := 475; --rook: danish: Tårn
-  ValueR  CONSTANT SIMPLE_INTEGER  := 480; --rook (castling possible) danish: tårn (Rokade)
-  ValueM  CONSTANT SIMPLE_INTEGER  :=9999; --king (castling possible) danish: Konge (Majestæt)
+  ValueT  CONSTANT SIMPLE_INTEGER  := 475; --rook: danish: Tï¿½rn
+  ValueR  CONSTANT SIMPLE_INTEGER  := 480; --rook (castling possible) danish: tï¿½rn (Rokade)
+  ValueM  CONSTANT SIMPLE_INTEGER  :=9999; --king (castling possible) danish: Konge (Majestï¿½t)
   ValueK  CONSTANT SIMPLE_INTEGER  :=9980; --king danish: Konge
   ValueD  CONSTANT SIMPLE_INTEGER  := 880; --Queen danish: Dronning
-  ValueL  CONSTANT SIMPLE_INTEGER  := 300; --Bishop danish: Løber
+  ValueL  CONSTANT SIMPLE_INTEGER  := 300; --Bishop danish: Lï¿½ber
   Value_S CONSTANT SIMPLE_INTEGER  := 280; --knight danish: Springer
   ValueB  CONSTANT SIMPLE_INTEGER  := 100; --pawn danish: Bonde
   ValueE  CONSTANT SIMPLE_INTEGER  := 100; --pawn (en-passant) danish: bonde (En-passant) 

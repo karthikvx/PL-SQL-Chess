@@ -1,4 +1,3 @@
-DROP PACKAGE BODY PL_PIG_CHESS_INTERFACE;
 
 CREATE OR REPLACE PACKAGE BODY PL_PIG_CHESS_INTERFACE AS
 --
@@ -285,7 +284,7 @@ BEGIN
           Trk-- in out TRKDATA 
           );
     EvTot := EvTot + PL_PIG_CHESS_ENGINE_EVAL.Evals;
-    --WR('træk='||MOVETXT(Trk,chr(position(PL_PIG_CHESS_ENGINE.stOff +Trk.Fra)))||' vlu='||Trk.vlu||' evals='||PL_PIG_CHESS_ENGINE_EVAL.Evals);      
+    --WR('trï¿½k='||MOVETXT(Trk,chr(position(PL_PIG_CHESS_ENGINE.stOff +Trk.Fra)))||' vlu='||Trk.vlu||' evals='||PL_PIG_CHESS_ENGINE_EVAL.Evals);      
     MOVETEXT := MOVETXT(Trk,chr(position(PL_PIG_CHESS_ENGINE.stOff+ Trk.Fra)));
     WR('lv='||LV||' move='||MOVETEXT||'  '||Trk.Fra ||Trk.Til||' vlu='||Trk.vlu||' typ='||Trk.Typ||' evals='||PL_PIG_CHESS_ENGINE_EVAL.Evals||' tot='||EvTot);      
     IF SET_IN(PL_PIG_CHESS_ENGINE.MOVEmat,Trk.Typ) OR SET_IN(PL_PIG_CHESS_ENGINE.MOVEpat,Trk.Typ) THEN
@@ -425,7 +424,7 @@ BEGIN
           Trk-- in out TRKDATA 
           );
   EvTot := EvTot + PL_PIG_CHESS_ENGINE_EVAL.Evals;
-  WR('træk='||MOVETXT(Trk,chr(position(PL_PIG_CHESS_ENGINE.stOff+ Trk.Fra)))||'  '||Trk.Fra ||Trk.Til||' vlu='||Trk.vlu||' typ='||Trk.Typ||' evals='||PL_PIG_CHESS_ENGINE_EVAL.Evals||' tot='||EvTot);      
+  WR('trï¿½k='||MOVETXT(Trk,chr(position(PL_PIG_CHESS_ENGINE.stOff+ Trk.Fra)))||'  '||Trk.Fra ||Trk.Til||' vlu='||Trk.vlu||' typ='||Trk.Typ||' evals='||PL_PIG_CHESS_ENGINE_EVAL.Evals||' tot='||EvTot);      
   PL_PIG_CHESS_ENGINE.DoMove(position, Trk.Fra, Trk.Til, Trk.Typ);
   OUTPUT_POSITION;
   FOR n in 1..2 LOOP
@@ -435,7 +434,7 @@ BEGIN
           Trk-- in out TRKDATA 
           );
     EvTot := EvTot + PL_PIG_CHESS_ENGINE_EVAL.Evals;
-    WR('træk='||MOVETXT(Trk,chr(position(PL_PIG_CHESS_ENGINE.stOff+ Trk.Fra)))||'  '||Trk.Fra ||Trk.Til||' vlu='||Trk.vlu||' typ='||Trk.Typ||' evals='||PL_PIG_CHESS_ENGINE_EVAL.Evals||' tot='||EvTot);      
+    WR('trï¿½k='||MOVETXT(Trk,chr(position(PL_PIG_CHESS_ENGINE.stOff+ Trk.Fra)))||'  '||Trk.Fra ||Trk.Til||' vlu='||Trk.vlu||' typ='||Trk.Typ||' evals='||PL_PIG_CHESS_ENGINE_EVAL.Evals||' tot='||EvTot);      
     PL_PIG_CHESS_ENGINE.DoMove(position, Trk.Fra, Trk.Til, Trk.Typ);
     WR(POSITION_STR(FALSE));
   END LOOP;

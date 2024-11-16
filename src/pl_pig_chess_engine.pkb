@@ -1,4 +1,3 @@
-DROP PACKAGE BODY PL_PIG_CHESS_ENGINE;
 
 CREATE OR REPLACE PACKAGE BODY PL_PIG_CHESS_ENGINE AS
 --
@@ -133,32 +132,6 @@ PreProcessor  : (Eval)
 Eval : (Eval)
   Evaluates a position. The dynamic evaluator
 
-     PROCEDURE overview : if () then in SkakKey,
-                          if {} then in SkakBrainX.
-                          if (] then in SkakBrainEval
-
-     (CalcMunde)__________{GetV} ______________________________ {GetNextTilV}
-                \_________{GetD} ______________ {GetNextD} ____ {GetNextTilD}
-                 \________Mirror
-
-     GetMoveNr____
-                  \
-     GetMove_      \
-             \      \
-     DoMoveOk_\______\_ GetNext ____________ GetNextTil
-               \________ DoMove       \_____ IkkeSkak _____ CheckSkak
-     DoMoveC
-               _________{InitTeo}
-     {Init}___/     
-                  _____(PreProcessor]______(PreProcess]
-                 /
-     FindTrk  __/______ Find _______________ (AEM)
-                               \____________+GetNext
-                                \___________+DoMove
-                                 \__________+Mirror
-                                  \_________+IkkeSkak
-     (MarkMoves) ______+GetNext    \________ QSortTrk
-                                    \_______ (Eval]
 */
 
   SkakBrainModCompilation CONSTANT VARCHAR2(16) :='1041';
@@ -176,12 +149,12 @@ Eval : (Eval)
   FirstW   BOOLEAN := FALSE; 
 
 /*
-  ValueT CONSTANT SIMPLE_INTEGER  := 470; --rook: danish: Tårn
-  ValueR CONSTANT SIMPLE_INTEGER  := 480; --rook (castling possible) danish: tårn (Rokade)
-  ValueM CONSTANT SIMPLE_INTEGER  :=9999; --king (castling possible) danish: Konge (Majestæt)
+  ValueT CONSTANT SIMPLE_INTEGER  := 470; --rook: danish: Tï¿½rn
+  ValueR CONSTANT SIMPLE_INTEGER  := 480; --rook (castling possible) danish: tï¿½rn (Rokade)
+  ValueM CONSTANT SIMPLE_INTEGER  :=9999; --king (castling possible) danish: Konge (Majestï¿½t)
   ValueK CONSTANT SIMPLE_INTEGER  :=9980; --king danish: Konge
   ValueD CONSTANT SIMPLE_INTEGER  := 880; --Queen danish: Dronning
-  ValueL CONSTANT SIMPLE_INTEGER  := 300; --Bishop danish: Løber
+  ValueL CONSTANT SIMPLE_INTEGER  := 300; --Bishop danish: Lï¿½ber
   Value_S CONSTANT SIMPLE_INTEGER := 300; --knight danish: Springer
   ValueB CONSTANT SIMPLE_INTEGER  := 100; --pawn danish: Bonde
   ValueE CONSTANT SIMPLE_INTEGER  := 100; --pawn (en-passant) danish: bonde (En-passant) 
@@ -189,7 +162,7 @@ Eval : (Eval)
 
   TYPE stDarrType IS VARRAY (8) OF SIMPLE_INTEGER;
   stDarr stDarrType := stDarrType(PL_PIG_CHESS_ENGINE_EVAL.ValueB,PL_PIG_CHESS_ENGINE_EVAL.Value_S,PL_PIG_CHESS_ENGINE_EVAL.ValueT,PL_PIG_CHESS_ENGINE_EVAL.ValueD,PL_PIG_CHESS_ENGINE_EVAL.Value_S,PL_PIG_CHESS_ENGINE_EVAL.ValueT,PL_PIG_CHESS_ENGINE_EVAL.ValueK);
-  stDcount    CONSTANT SIMPLE_INTEGER :=8;-- før 0
+  stDcount    CONSTANT SIMPLE_INTEGER :=8;-- fï¿½r 0
   stDpawns    CONSTANT SIMPLE_INTEGER :=1;
   stDknights  CONSTANT SIMPLE_INTEGER :=2;
   stDbishops  CONSTANT SIMPLE_INTEGER :=2;
@@ -258,7 +231,7 @@ BEGIN
 END UPPER_n;
 --
 FUNCTION pdN(brik_n SIMPLE_INTEGER, felt SIMPLE_INTEGER) RETURN SIMPLE_INTEGER IS
-BEGIN -- two-dimensional array (bP..wR, 11..88) -> 1..3978. Here index is calculated out of Numeric repræsentation (ascii value) of pieces.
+BEGIN -- two-dimensional array (bP..wR, 11..88) -> 1..3978. Here index is calculated out of Numeric reprï¿½sentation (ascii value) of pieces.
   --RETURN (brik - 66) * 78 + felt - 10; -- ASCII(bP)=66  ASCII(wR)=116
   RETURN brik_n * 78 -5158 + felt; -- ASCII(bP)=66
 END pdN;
@@ -281,8 +254,8 @@ END pdN;
   retn contains data to generate the legal moves. Every piece (brik) has
   a number of direction (retning) vectors (4-8) and a MaxDistance (RQB=TRDL=8, PNK=BSKM=1).
   retn(brik,MaxDistance]
-  retn(brik,0]           indeholder første retning.
-  retn(brik,retning]     indeholder så næste retning indtil den er 0.
+  retn(brik,0]           indeholder fï¿½rste retning.
+  retn(brik,retning]     indeholder sï¿½ nï¿½ste retning indtil den er 0.
 
   The knight is MaxDistance=1 an eight directionvektors pointing
   directly on fields, of possible moves.
@@ -775,8 +748,8 @@ END still;
 
 PROCEDURE GetNextTil(stilling in out PL_PIG_CHESS_ENGINE_EVAL.STILLINGTYPE, fra in out SIMPLE_INTEGER ,til in out SIMPLE_INTEGER, retning IN OUT SIMPLE_INTEGER,
                      MoveTyp in out MOVETYPE) IS
--- finder s/h næste træk med nuværende brik, til=fra -> til=89 når ikke flere
--- !!!!!!!!!! slag for enpassant markeres IKKE for sort, bør laves
+-- finder s/h nï¿½ste trï¿½k med nuvï¿½rende brik, til=fra -> til=89 nï¿½r ikke flere
+-- !!!!!!!!!! slag for enpassant markeres IKKE for sort, bï¿½r laves
   Done BOOLEAN;
   Brik SIMPLE_INTEGER:=0; 
   Maxx SIMPLE_INTEGER:=0; 
@@ -965,8 +938,8 @@ BEGIN
 END GetNextTil;
 
 PROCEDURE DoMove(stilling in out PL_PIG_CHESS_ENGINE_EVAL.STILLINGTYPE, fra SIMPLE_INTEGER,til SIMPLE_INTEGER, MoveTyp MOVETYPE) IS
--- udfører (Hvidt/Sort) træk, der i forvejen er valideret OK 
--- MoveTyp skal være defineret (og ændres ikke her) 
+-- udfï¿½rer (Hvidt/Sort) trï¿½k, der i forvejen er valideret OK 
+-- MoveTyp skal vï¿½re defineret (og ï¿½ndres ikke her) 
   n SIMPLE_INTEGER :=0;
 BEGIN
   IF stilling(stOff+ HvisTur)=wT THEN
@@ -987,8 +960,8 @@ BEGIN
           END IF;
         END IF;
       WHEN stilling(stOff+ fra) = wC  THEN 
-               stilling(stOff+ til):=wR;        -- fjern tårns rokaderet 
-               -- hvis også andet tårn har været flyttet så fjern konges rokaderet 
+               stilling(stOff+ til):=wR;        -- fjern tï¿½rns rokaderet 
+               -- hvis ogsï¿½ andet tï¿½rn har vï¿½ret flyttet sï¿½ fjern konges rokaderet 
                IF ((fra=11) AND (stilling(stOff+ 18)<>wC) OR (fra=18) AND (stilling(stOff+ 11)<>wC)) 
                AND (stilling(stOff+ 15)=wM) THEN stilling(stOff+ 15):=wK; END IF;
       WHEN stilling(stOff+ fra) = wM THEN 
@@ -1002,7 +975,7 @@ BEGIN
     IF SET_IN(MOVEenpassant,MoveTyp) THEN
       stilling(stOff+ til-10):=spc;      -- remove e.p. pawn (bonde) 
     ELSIF SET_IN(MOVErokade,MoveTyp) THEN
-      IF til<fra THEN             -- move/convert rook (tårn) 
+      IF til<fra THEN             -- move/convert rook (tï¿½rn) 
         stilling(stOff+ 14):=wR;
         stilling(stOff+ 11):=spc;
         IF stilling(stOff+ 18)=wC THEN stilling(stOff+ 18):=wR; END IF;
@@ -1034,12 +1007,12 @@ BEGIN
           END IF;
         END IF;
       WHEN stilling(stOff+ fra) = bC  THEN 
-               stilling(stOff+ til):=bR;        -- remove rook (tårns) castling right
+               stilling(stOff+ til):=bR;        -- remove rook (tï¿½rns) castling right
                IF ((fra=81) AND (stilling(stOff+ 88)<>bC) OR (fra=88) AND (stilling(stOff+ 81)<>bC)) AND (stilling(stOff+ 85)=bM) THEN --!!!!!!!!!!!!!
                  stilling(stOff+ 85):=bK;
                END IF;
       WHEN stilling(stOff+ fra) = bM  THEN 
-               stilling(stOff+ til):=bK;        -- remove King (tårns) castling right
+               stilling(stOff+ til):=bK;        -- remove King (tï¿½rns) castling right
                IF stilling(stOff+ 81)=bC THEN stilling(stOff+ 81):=bR; END IF;
                IF stilling(stOff+ 88)=bC THEN stilling(stOff+ 88):=bR; END IF;
     ELSE   
@@ -1049,7 +1022,7 @@ BEGIN
     IF SET_IN(MOVEenpassant,MoveTyp) THEN
       stilling(stOff+ til+10):=spc;      -- remove e.p. pawn
     ELSIF SET_IN(MOVErokade,MoveTyp) THEN
-      IF til<fra THEN             -- move/convert rook (tårn)
+      IF til<fra THEN             -- move/convert rook (tï¿½rn)
         stilling(stOff+ 84):=bR;
         stilling(stOff+ 81):=spc;
         IF stilling(stOff+ 88)=bC THEN stilling(stOff+ 88):=bR; END IF;
@@ -1068,9 +1041,9 @@ BEGIN
 END DoMove;
 
 PROCEDURE DoMoveC(stilling in out PL_PIG_CHESS_ENGINE_EVAL.STILLINGTYPE, fra SIMPLE_INTEGER,til SIMPLE_INTEGER) IS
--- udfører (Hvidt/Sort) træk, der i forvejen er valideret OK
--- som DoMove, men kræver IKKE MoveTyp information
--- Hurtigere end DoMoveOK når træk ER valideret OK
+-- udfï¿½rer (Hvidt/Sort) trï¿½k, der i forvejen er valideret OK
+-- som DoMove, men krï¿½ver IKKE MoveTyp information
+-- Hurtigere end DoMoveOK nï¿½r trï¿½k ER valideret OK
   MoveTyp MOVETYPE := MOVEnormal;
 BEGIN
   IF stilling(stOff+ til)=spc THEN
@@ -1114,7 +1087,7 @@ BEGIN
     skak:=(stilling(stOff+ n-21)=bN) OR (stilling(stOff+ n-19)=bN) OR (stilling(stOff+ n-12)=bN)
     OR (stilling(stOff+ n- 8)=bN) OR (stilling(stOff+ n+ 8)=bN) OR (stilling(stOff+ n+12)=bN)
     OR (stilling(stOff+ n+19)=bN) OR (stilling(stOff+ n+21)=bN);
-    retning:=retn(rxOff+ wR) (ryOff+ 0);       -- look in all rook (tårn) directions
+    retning:=retn(rxOff+ wR) (ryOff+ 0);       -- look in all rook (tï¿½rn) directions
     LOOP
       tst:=n;
       cnt:=0;
@@ -1132,7 +1105,7 @@ BEGIN
       exit when (retning=0) OR skak;
     END LOOP;
     IF NOT skak THEN
-      retning:=retn(rxOff+ wB) (ryOff+ 0);       -- look in all bishop (løber) directions
+      retning:=retn(rxOff+ wB) (ryOff+ 0);       -- look in all bishop (lï¿½ber) directions
       LOOP
         tst:=n;
         cnt:=0;
@@ -1156,11 +1129,11 @@ BEGIN
     skak:=(stilling(stOff+ n-21)=wN) OR (stilling(stOff+ n-19)=wN) OR (stilling(stOff+ n-12)=wN)
     OR (stilling(stOff+ n- 8)=wN) OR (stilling(stOff+ n+ 8)=wN) OR (stilling(stOff+ n+12)=wN)
     OR (stilling(stOff+ n+19)=wN) OR (stilling(stOff+ n+21)=wN);
-    retning:=retn(rxOff+ wR) (ryOff+ 0);       -- led i alle tårn retninger 
+    retning:=retn(rxOff+ wR) (ryOff+ 0);       -- led i alle tï¿½rn retninger 
     LOOP
       tst:=n;
       cnt:=0;
-      LOOP                    -- find første ikke-tomme felt i retningen 
+      LOOP                    -- find fï¿½rste ikke-tomme felt i retningen 
         tst:=tst+retning;
         cnt := cnt + 1;
         EXIT WHEN stilling(stOff+ tst)<>spc;
@@ -1174,11 +1147,11 @@ BEGIN
       EXIT WHEN (retning=0) OR skak;
     END LOOP;
     IF NOT skak THEN
-      retning:=retn(rxOff+ wB) (ryOff+ 0);       -- led i alle løber retninger 
+      retning:=retn(rxOff+ wB) (ryOff+ 0);       -- led i alle lï¿½ber retninger 
       LOOP
         tst:=n;
         cnt:=0;
-        LOOP                    -- find første ikke-tomme felt i retningen 
+        LOOP                    -- find fï¿½rste ikke-tomme felt i retningen 
           tst:=tst+retning;
           cnt := cnt + 1;
           EXIT WHEN stilling(stOff+ tst)<>spc;
@@ -1216,7 +1189,7 @@ BEGIN
       LOOP
         tst:=n;
         cnt:=0;
-        LOOP                    -- find første ikke-tomme felt i retningen 
+        LOOP                    -- find fï¿½rste ikke-tomme felt i retningen 
           tst:=tst+retning;
           cnt := cnt + 1;
           EXIT WHEN stilling(stOff+ tst)<>spc;
@@ -1251,7 +1224,7 @@ BEGIN
       LOOP
         tst:=n;
         cnt:=0;
-        LOOP                    -- find første ikke-tomme felt i retningen 
+        LOOP                    -- find fï¿½rste ikke-tomme felt i retningen 
           tst:=tst+retning;
           cnt := cnt + 1;
           EXIT WHEN stilling(stOff+ tst)<>spc;
@@ -1278,9 +1251,9 @@ END CheckSkak;
 
 FUNCTION IkkeSkak(stilling IN OUT PL_PIG_CHESS_ENGINE_EVAL.STILLINGTYPE, fra SIMPLE_INTEGER,p_til SIMPLE_INTEGER,
                   MoveTyp MOVETYPE) RETURN BOOLEAN IS
--- checker om (hvidt/sort) træk er ulovligt p.gr.a. at kongen er skak 
+-- checker om (hvidt/sort) trï¿½k er ulovligt p.gr.a. at kongen er skak 
 -- eller rokerer fra/over truet felt 
--- kræver at MoveTyp er sat korrekt når rokade og pat 
+-- krï¿½ver at MoveTyp er sat korrekt nï¿½r rokade og pat 
   skak BOOLEAN;
   n SIMPLE_INTEGER:=0;
   vej SIMPLE_INTEGER:=0;
@@ -1368,14 +1341,14 @@ PROCEDURE GetNext(stilling in out PL_PIG_CHESS_ENGINE_EVAL.STILLINGTYPE,
                   til in out SIMPLE_INTEGER,
                   retning in out SIMPLE_INTEGER,
                   MoveTyp in out MOVETYPE) IS
--- finder næste (hvide/sorte) træk i stillingen, fra=89 når ikke flere
+-- finder nï¿½ste (hvide/sorte) trï¿½k i stillingen, fra=89 nï¿½r ikke flere
   hvid BOOLEAN;
 BEGIN
   IF stilling(stOff+ HvisTur)=wT THEN
     LOOP
       LOOP
         IF til>88 THEN
-          LOOP -- find næste hvide brik
+          LOOP -- find nï¿½ste hvide brik
             fra := fra + 1;
             EXIT WHEN (fra>88) OR (stilling(stOff+ fra)>wA);
           END LOOP; 
@@ -1448,8 +1421,8 @@ END Mirror;
 --
 --
 FUNCTION DoMoveOk(stilling in out PL_PIG_CHESS_ENGINE_EVAL.STILLINGTYPE, fra SIMPLE_INTEGER,til SIMPLE_INTEGER,MoveTyp in out MOVETYPE) RETURN BOOLEAN IS
--- fuldstændigt check af om (s/h) træk er ok, genererer sort/hvide træk med DoMove
--- IF not DoMoveOk() then fejl.. -> udfører et træk hvis det er lovligt
+-- fuldstï¿½ndigt check af om (s/h) trï¿½k er ok, genererer sort/hvide trï¿½k med DoMove
+-- IF not DoMoveOk() then fejl.. -> udfï¿½rer et trï¿½k hvis det er lovligt
   fr SIMPLE_INTEGER:=0;
   ti SIMPLE_INTEGER:=0;
   retning SIMPLE_INTEGER:=0;
@@ -1940,7 +1913,7 @@ BEGIN
                 END CASE;
                 IF n+vl>-100 THEN n:=m; END IF; --!!!!!!!!!!!*)
               END IF;
-            ELSIF (SET_IN (MOVEskak , movetyp)) AND (Qdepth<2) THEN -- 1: se på ofre med skak
+            ELSIF (SET_IN (MOVEskak , movetyp)) AND (Qdepth<2) THEN -- 1: se pï¿½ ofre med skak
               n:=1;
             END IF;
           END IF;
@@ -2385,7 +2358,7 @@ BEGIN
   retning:=0;
   countt:=0;
   reps:=0;
-  LOOP           -- lav liste med alle træk (count)
+  LOOP           -- lav liste med alle trï¿½k (count)
     GetNext(stilling,fr,ti,retning,movetyp);
     IF (fr<89) THEN
       countt := countt + 1;
@@ -2434,7 +2407,7 @@ BEGIN
             VluTmp:=880-100; -- Queen 
           END IF;
         ELSE
-          --!!!!!!!!!!!!!!!!!! skal være der!!!
+          --!!!!!!!!!!!!!!!!!! skal vï¿½re der!!!
           --NULL;
           VluTmp := PL_PIG_CHESS_ENGINE_EVAL.pd(pdN(stilling(stOff+ fr),ti)) - PL_PIG_CHESS_ENGINE_EVAL.pd(pdN(stilling(stOff+ fr),fr)); 
         END IF;
@@ -2694,7 +2667,7 @@ BEGIN
 --$ ENDIF
     OK:=FALSE;
  
-   -- Check om varianttræ har et ok forslag !!!!!!!!!!!!!!!!!!!!!!*)
+   -- Check om varianttrï¿½ har et ok forslag !!!!!!!!!!!!!!!!!!!!!!*)
     IF (TFra>10) AND (TTil>10) AND (TFra<89) AND (TTil<89) THEN
       IF (stilling(stOff+ HvisTur)=bT) AND (stilling(stOff+ TFra)<wA)
       OR (stilling(stOff+ HvisTur)<>bT) AND (stilling(stOff+ TFra)>'Z') THEN
@@ -2791,7 +2764,7 @@ BEGIN
   IF stilling(stOff+ HvisTur)=wT THEN
     LOOP
       IF til>88 THEN
-        LOOP -- find næste hvide brik
+        LOOP -- find nï¿½ste hvide brik
           fra := fra + 1;
           EXIT WHEN (fra>88) OR (stilling(stOff+ fra)>wA);
         END LOOP;
@@ -2817,7 +2790,7 @@ BEGIN
   END IF;
 END GetNextQ;
  
--- 1'ste træk =1, Udfører træk hvis OK (fra<89)
+-- 1'ste trï¿½k =1, Udfï¿½rer trï¿½k hvis OK (fra<89)
 -- Efter kald vil EatChar= den slagne brik (bBsSlLtdDTtR ellers spc)
 PROCEDURE GetMove(stilling in out PL_PIG_CHESS_ENGINE_EVAL.STILLINGTYPE, 
                   t in out TRKDATA, 
@@ -2846,7 +2819,7 @@ BEGIN
 --$ENDIF
     END IF;
   END LOOP;
-  IF fra<89 THEN  -- udfør træk
+  IF fra<89 THEN  -- udfï¿½r trï¿½k
     IF SET_IN(MOVEslag,movetyp) THEN
       EatChar:=stilling(stOff+ til);
       IF EatChar=spc THEN

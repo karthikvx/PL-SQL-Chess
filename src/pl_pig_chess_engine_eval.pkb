@@ -1,4 +1,3 @@
-DROP PACKAGE BODY PL_PIG_CHESS_ENGINE_EVAL;
 
 CREATE OR REPLACE PACKAGE BODY PL_PIG_CHESS_ENGINE_EVAL AS
 --
@@ -213,7 +212,7 @@ BEGIN
 END UPPER_n;
 --
 FUNCTION pdN(brik_n SIMPLE_INTEGER, felt SIMPLE_INTEGER) RETURN SIMPLE_INTEGER IS
-BEGIN -- two-dimensional array (bP..wR, 11..88) -> 1..3978. Here index is calculated out of Numeric repræsentation (ascii value) of pieces.
+BEGIN -- two-dimensional array (bP..wR, 11..88) -> 1..3978. Here index is calculated out of Numeric reprï¿½sentation (ascii value) of pieces.
   --RETURN (brik - 66) * 78 + felt - 10; -- ASCII(bP)=66  ASCII(wR)=116
   RETURN brik_n * 78 -5158 + felt; -- ASCII(bP)=66
 END pdN;
@@ -289,7 +288,7 @@ BEGIN
             FOR n in 2..7 LOOP  FOR m in 2..7 LOOP pdw(pdN(ch_n,n*10+m)):=pd2070k;  END LOOP; END LOOP;
             FOR n in 3..6 LOOP  FOR m in 3..6 LOOP pdw(pdN(ch_n,n*10+m)):=pd3060k;  END LOOP; END LOOP;
           END IF;
-      WHEN ch_n in (bB,bQ) THEN  /* løber,D ikke specielt i centrum, men fianciettering */
+      WHEN ch_n in (bB,bQ) THEN  /* lï¿½ber,D ikke specielt i centrum, men fianciettering */
           p := 630;
           IF EndGame AND (ch_n=bQ) THEN t:=pd3060qe; ELSE t:=pd3060qb; END IF;
           FOR n in 1..8 LOOP  FOR m in 1..8 LOOP pdw(pdN(ch_n,n*10+m)):=pd1080qb;  END LOOP; END LOOP;
@@ -320,7 +319,7 @@ BEGIN
     ix := pdN(bP,75); pdw(ix) := pdw(ix) - PenalUndev;
   ELSE
     p := 650;
-  /* tårne (rook) + Dronning (queen) på (at) 7+8 række (row) bonus */
+  /* tï¿½rne (rook) + Dronning (queen) pï¿½ (at) 7+8 rï¿½kke (row) bonus */
     FOR n IN 1..8 LOOP
       pdw(pdN(bR,20+n)):=pd7R;   
       pdw(pdN(bR,10+n)):=pd8R;
@@ -330,7 +329,7 @@ BEGIN
     END LOOP;
     p := 660;
 
-    /* bønder (pawns) mere værd jo tættere de er på forvandling (promotion) 7, 9 */
+    /* bï¿½nder (pawns) mere vï¿½rd jo tï¿½ttere de er pï¿½ forvandling (promotion) 7, 9 */
     IF EndGame THEN t := pdPend; ELSE t := pdP; END IF;
     FOR n IN 2..7 LOOP
       v := (t-n)*(t-n);
@@ -369,7 +368,7 @@ BEGIN
   p := 680;
 
 
-  /* konge (king) mere værd hvis i sikkerhed (secure) */
+  /* konge (king) mere vï¿½rd hvis i sikkerhed (secure) */
   IF not EndGame THEN
     p := 690;
     FOR m IN 1..2 LOOP
@@ -1253,10 +1252,10 @@ BEGIN  p := 400;--PreProcessor
     ix := pdN(bP,68); pdw(ix) := pdw(ix) + pawnh3a3attack;
   END IF;
   IF (stilling(stOff+ 42)=bB) OR (stilling(stOff+ 42)=bN) THEN 
-    ix := pdN(wP,31); pdw(ix) := pdw(ix) + pawnh3a3attack;--før 38, må være en fejl
+    ix := pdN(wP,31); pdw(ix) := pdw(ix) + pawnh3a3attack;--fï¿½r 38, mï¿½ vï¿½re en fejl
   END IF;
   IF (stilling(stOff+ 52)=wB) OR (stilling(stOff+ 52)=wN) THEN 
-    ix := pdN(bP,61); pdw(ix) := pdw(ix) + pawnh3a3attack;--før 68, må være en fejl
+    ix := pdN(bP,61); pdw(ix) := pdw(ix) + pawnh3a3attack;--fï¿½r 68, mï¿½ vï¿½re en fejl
   END IF;
   
   p := 490;
@@ -1342,7 +1341,7 @@ FUNCTION Eval(stilling STILLINGTYPE, Activity SIMPLE_INTEGER,
   x     SIMPLE_INTEGER := 0;
   y     SIMPLE_INTEGER := 0;
   y_n   SIMPLE_INTEGER := 0;
-  inmv SIMPLE_INTEGER  := 0;   -- Positionel, matriel værdi
+  inmv SIMPLE_INTEGER  := 0;   -- Positionel, matriel vï¿½rdi
   brik           SIMPLE_INTEGER := 0;
   ch             SIMPLE_INTEGER := 0; -- ny
   KingEndGameW  BOOLEAN;
@@ -1680,7 +1679,7 @@ BEGIN
                         Bpawns(n- 9):=TRUE;
                       END IF;
                       --FOR m IN 20+x..n-20 BY 10 LOOP
-                      FOR m_n in 2..y-2 LOOP --testet grundígt!!!
+                      FOR m_n in 2..y-2 LOOP --testet grundï¿½gt!!!
                         m := m_n*10+x;
                         Bpawns(m)  :=TRUE;
                         Bpawns(m-1):=TRUE;
@@ -1697,7 +1696,7 @@ BEGIN
                         Wpawns(n+ 9):=TRUE;
                       END IF;
                       --FOR m IN n+20..70+x BY 10 LOOP
-                      FOR m_n in 2+y..7 LOOP--testet grundígt!!!
+                      FOR m_n in 2+y..7 LOOP--testet grundï¿½gt!!!
                         m := m_n*10+x;
                         Wpawns(m)  :=TRUE;
                         Wpawns(m-1):=TRUE;

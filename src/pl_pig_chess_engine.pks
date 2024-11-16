@@ -1,4 +1,3 @@
-DROP PACKAGE PL_PIG_CHESS_ENGINE;
 
 CREATE OR REPLACE PACKAGE PL_PIG_CHESS_ENGINE AS
 --
@@ -247,7 +246,7 @@ PROCEDURE GetNext(stilling in out PL_PIG_CHESS_ENGINE_EVAL.STILLINGTYPE,
                   retning in out SIMPLE_INTEGER,
                   MoveTyp in out MOVETYPE);
 -- finds next legal (white/black) move in the position, fra=89 when no more
--- fra=fra-1 and til=89 for læsning af en briks muligheder; 
+-- fra=fra-1 and til=89 for lï¿½sning af en briks muligheder; 
 
 PROCEDURE Mirror(stilling in out PL_PIG_CHESS_ENGINE_EVAL.STILLINGTYPE);
 -- Spejler stilling sort/hvid *)

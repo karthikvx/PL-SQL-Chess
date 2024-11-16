@@ -1,4 +1,3 @@
-DROP PACKAGE PL_PIG_CHESS_DATA;
 
 CREATE OR REPLACE PACKAGE PL_PIG_CHESS_DATA IS
 -- v 0.92
@@ -101,9 +100,9 @@ FEN format
 -- PIG-chess found errors
 TYPE PigTestType IS VARRAY(4) OF VARCHAR2(150); --EPD format
 PigTest CONSTANT PigTestType := PigTestType
-('rnbq1rk1/pppp2pp/4pn2/5p2/1b1P4/P1N1PN2/1PPB1PPP/R2QKB1R b KQ - am Bxc3; id "PIG.01"; c0 "Opgiver løberpar unødigt!";'
-,'r1bq1rk1/ppp3pp/2npp3/5p2/2B5/P1P1PN2/2P1QPPP/R3K2R b KQ - am d5; id "PIG.02"; c0 "Bønder på løbers farve, svækker e5!";'
-,'r1b2rk1/p1q3pp/1pp1p3/4Np1Q/5P2/4P3/3R2PP/2R3K1 b - - bm a5; sm g6; am Bb7; id "PIG.03"; c0 "Tillader tårn på 7''række! a5 må være bedst";'
+('rnbq1rk1/pppp2pp/4pn2/5p2/1b1P4/P1N1PN2/1PPB1PPP/R2QKB1R b KQ - am Bxc3; id "PIG.01"; c0 "Opgiver lï¿½berpar unï¿½digt!";'
+,'r1bq1rk1/ppp3pp/2npp3/5p2/2B5/P1P1PN2/2P1QPPP/R3K2R b KQ - am d5; id "PIG.02"; c0 "Bï¿½nder pï¿½ lï¿½bers farve, svï¿½kker e5!";'
+,'r1b2rk1/p1q3pp/1pp1p3/4Np1Q/5P2/4P3/3R2PP/2R3K1 b - - bm a5; sm g6; am Bb7; id "PIG.03"; c0 "Tillader tï¿½rn pï¿½ 7''rï¿½kke! a5 mï¿½ vï¿½re bedst";'
 ,'rnbqkbnr/ppp1pppp/8/8/3pP3/2N5/PPPP1PPP/R1BQKBNR w KQkq - am Bb5; id "PIG.04"; c0 "Koster en officer!";');
 --
 --The B-K test (henceforth BKT) Bratko-Kopec Testpositions (EPD-Records)
@@ -295,7 +294,7 @@ PigTest CONSTANT PigTestType := PigTestType
 ,'r1b2rk1/1p1nbppp/pq1p4/3B4/P2NP3/2N1p3/1PP3PP/R2Q1R1K w - - bm Rxf7; id "Position 10";'
 ,'r1b3k1/p2p1nP1/2pqr1Rp/1p2p2P/2B1PnQ1/1P6/P1PP4/1K4R1 w - - bm Rxh6; id "Position 11";');
 
---LCT II (Louguet Chess Test II by Frédéric Louguet in 1994)
+--LCT II (Louguet Chess Test II by Frï¿½dï¿½ric Louguet in 1994)
 -- It contains 14 positional (POS), 12 tactical (CMB) and 9 endgame (FIN) test-postions, 10 minutes per position. 
 --    30 points, if solution is found between 0 and 9 seconds
 --    25 points, if solution is found between 10 and 29 seconds
@@ -594,7 +593,7 @@ PigTest CONSTANT PigTestType := PigTestType
 ,'rnq1nrk1/pp3pbp/6p1/3p4/3P4/5N2/PP2BPPP/R1BQK2R w KQ - bm O-O; id "sbd.134";');
 
 
--- Reinfeld¿s (1945) 300 (tactical) positions; 
+-- Reinfeldï¿½s (1945) 300 (tactical) positions; 
 --EPD Wacnew
   TYPE ReinfeldTestType IS VARRAY(300) OF VARCHAR2(128); --EPD format
   ReinfeldTest CONSTANT ReinfeldTestType := ReinfeldTestType
